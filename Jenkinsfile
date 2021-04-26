@@ -23,15 +23,16 @@ pipeline {
         }
         stage('Push image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-                    sh 'docker login -u $USERNAME -p $PASSWORD'
-                    sh 'docker image push ' + registry + ":v1.$BUILD_NUMBER"
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi $registry:v1.$BUILD_NUMBER"
             }
         }
         stage('Deploy in Dev') {
