@@ -14,6 +14,12 @@ pipeline {
                 url: 'https://github.com/mistercamilo/k8s_lab_cicd.git'
             }
         }
+        stage('Unit Tests') {
+            steps {
+                sh 'npm install'
+                sh 'npm run test'
+            }
+        }
         stage('Build image') {
             steps {
                 script {
