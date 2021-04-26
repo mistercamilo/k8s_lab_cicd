@@ -1,4 +1,9 @@
 pipeline {
+    environment { 
+        registry = "mistercamilo/awesomeapp:v1."
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
     agent any
 
     stages {
@@ -10,15 +15,18 @@ pipeline {
             }
         }
         stage('Build image') {
-            steps{
-                app = docker.build('mistercamilo/awesomeapp:v1.0')                
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
             }
         }
         stage('Push image') {
-            steps{
-                docker.withRegistry('https://registry.hub.docker.com', 'git') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push('latest')
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push() 
+                    }
                 }
             }
         }
