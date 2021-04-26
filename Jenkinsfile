@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checkout SCM'
-                git branch: 'main',
+                git branch: 'master',
                 url: 'https://github.com/mistercamilo/k8s_lab_cicd.git'
             }
         }
