@@ -23,9 +23,10 @@ pipeline {
         }
         stage('Push image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
-                sh 'docker login -u $USERNAME -p $PASSWORD'
-                sh 'docker image push ' + registry + ":v1.$BUILD_NUMBER"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+                    sh 'docker login -u $USERNAME -p $PASSWORD'
+                    sh 'docker image push ' + registry + ":v1.$BUILD_NUMBER"
+                }
             }
         }
         stage('Cleaning up') {
