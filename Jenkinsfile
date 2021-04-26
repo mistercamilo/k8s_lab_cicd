@@ -1,6 +1,6 @@
 pipeline {
-    environment { 
-        registry = "mistercamilo/awesomeapp:v1."
+    environment {
+        registry = 'mistercamilo/awesomeapp:v1.'
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -11,13 +11,13 @@ pipeline {
             steps {
                 echo 'Build Docker Image'
                 git branch: 'main',
-                url: 'git@github.com:mistercamilo/k8s_lab_cicd.git'
+                url: 'https://github.com/mistercamilo/k8s_lab_cicd.git'
             }
         }
         stage('Build image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push() 
+                        dockerImage.push()
                     }
                 }
             }
