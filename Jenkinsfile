@@ -10,12 +10,16 @@ pipeline {
             }
         }
         stage('Build image') {
-            app = docker.build('mistercamilo/awesomeapp:v1.0')
+            steps{
+                app = docker.build('mistercamilo/awesomeapp:v1.0')                
+            }
         }
         stage('Push image') {
-            docker.withRegistry('https://registry.hub.docker.com', 'git') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push('latest')
+            steps{
+                docker.withRegistry('https://registry.hub.docker.com', 'git') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push('latest')
+                }
             }
         }
         stage('Deploy in Dev') {
