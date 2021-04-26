@@ -24,10 +24,15 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry( 'https://registry-1.docker.io/v2/', registryCredential ) {
                         dockerImage.push()
                     }
                 }
+            }
+        }
+        stage('Cleaning up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
         stage('Deploy in Dev') {
