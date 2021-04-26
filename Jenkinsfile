@@ -39,14 +39,14 @@ pipeline {
             steps {
                 echo 'Deploying Pod to Kubernetes'
                 sh 'kubectl config use-context k3d-dev'
-                sh 'kubectl apply -f dev/ -R'
+                sh 'kubectl apply -f manifests/dev/ -R'
             }
         }
         stage('Deploy in Staging') {
             steps {
                 echo 'Deploying app in the Staging'
                 sh 'kubectl config use-context k3d-staging'
-                sh 'kubectl apply -f staging/ -R'
+                sh 'kubectl apply -f manifests/staging/ -R'
             }
         }
         stage('Deploy in Prod') {
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 echo 'Deploying Pod to Kubernetes'
                 sh 'kubectl config use-context k3d-prod'
-                sh 'kubectl apply -f prod/ -R'
+                sh 'kubectl apply -f manifests/prod/ -R'
             }
         }
     }
