@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Cleaning up') {
             steps {
-                sh "docker rmi $registry:v1.$BUILD_NUMBER"
+                sh "docker rmi $registry:latest"
             }
         }
         stage('Deploy in Dev') {
