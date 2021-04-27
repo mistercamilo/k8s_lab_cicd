@@ -8,5 +8,5 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-    nodePort: 30003
+    nodePort: 30001
   type: LoadBalancer
