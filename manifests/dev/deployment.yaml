@@ -13,13 +13,13 @@ spec:
     spec:
       containers:
         - name: app
-          image: mistercamilo/awesomeapp
+          image: mistercamilo/awesomeapp:latest
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
-          env:
-            - name: MONGODB_URI
-              value: mongodb://mongodbuser:mongodbpwd@mongo-service:27017/admin
+#          env:
+#            - name: MONGODB_URI
+#              value: mongodb://mongodbuser:mongodbpwd@mongo-service:27017/admin
 #          livenessProbe:
 #            httpGet:
 #              path: /health

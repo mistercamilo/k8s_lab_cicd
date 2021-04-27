@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: mistercamilo/awesomeapp
+          image: mistercamilo/awesomeapp:latest
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
